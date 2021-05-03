@@ -1,0 +1,6 @@
+1. update queue name in config sheet
+2. invoke init all wf- update get credentials, give the paths of the folders to copy,create n place the docs
+3. get transaction data-no changes
+4. Process- Add d actual logic
+5. Publish d package
+6. run from orches

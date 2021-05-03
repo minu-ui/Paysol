@@ -1,0 +1,694 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="Process" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/word" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ss="clr-namespace:System.Security;assembly=mscorlib" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:upap="clr-namespace:UiPath.PDF.Activities.PDF;assembly=UiPath.PDF.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="Transaction item to be processed." Name="in_TransactionItem" Type="InArgument(ui:QueueItem)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1942,7294</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="40">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>UiPath.Word</x:String>
+      <x:String>UiPath.Word.Activities</x:String>
+      <x:String>UiPath.PDF.Activities.PDF</x:String>
+      <x:String>UiPath.PDF.Activities</x:String>
+      <x:String>System.Security</x:String>
+      <x:String>UiPath.Mail</x:String>
+      <x:String>UiPath.Mail.SMTP.Activities</x:String>
+      <x:String>UiPath.Mail.Activities</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Text.RegularExpressions</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.DataTableUtilities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="38">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>UiPath.Word.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Mail.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Reflection.TypeExtensions</AssemblyReference>
+      <AssemblyReference>System.Runtime.InteropServices.RuntimeInformation</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>Microsoft.Extensions.DependencyModel</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap:VirtualizedContainerService.HintSize="1952,7229" sap2010:WorkflowViewState.IdRef="Sequence_7">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <Sequence sap2010:Annotation.AnnotationText="Invoke major steps of the business process, which are usually implemented by multiple subworkflows.&#xA;&#xA;If a BusinessRuleException is thrown, the transaction is skipped. &#xA;If another kind of exception occurs, the current transaction can be retried. " DisplayName="Process" sap:VirtualizedContainerService.HintSize="1910,7137" sap2010:WorkflowViewState.IdRef="Sequence_1">
+      <Sequence.Variables>
+        <Variable x:TypeArguments="x:String" Name="PDFfilepath" />
+        <Variable x:TypeArguments="x:String" Name="WordFilePath" />
+        <Variable x:TypeArguments="x:String" Name="Protectedpdf" />
+        <Variable x:TypeArguments="x:String" Name="InputData" />
+        <Variable x:TypeArguments="x:String" Name="DOJ" />
+        <Variable x:TypeArguments="s:DateTime" Name="datetimeStr" />
+        <Variable x:TypeArguments="x:String" Name="PayslipWord" />
+        <Variable x:TypeArguments="x:String" Name="BasicPay" />
+        <Variable x:TypeArguments="x:String" Name="In_Credentials" />
+        <Variable x:TypeArguments="ss:SecureString" Name="Password" />
+        <Variable x:TypeArguments="x:String" Name="UserID" />
+        <Variable x:TypeArguments="x:String" Name="LogFilePath" />
+        <Variable x:TypeArguments="x:Int32" Name="rowcount" />
+        <Variable x:TypeArguments="sd:DataRow" Name="employeedatarow" />
+        <Variable x:TypeArguments="x:String" Name="mapFile" />
+        <Variable x:TypeArguments="sd:DataTable" Name="mapData" />
+        <Variable x:TypeArguments="sd:DataTable" Name="employeeDataDT" />
+        <Variable x:TypeArguments="x:String" Name="HRAPay" />
+        <Variable x:TypeArguments="x:String" Name="ConveyancePay" />
+        <Variable x:TypeArguments="x:String" Name="MedAllowPay" />
+        <Variable x:TypeArguments="x:String" Name="excelData" />
+        <Variable x:TypeArguments="scg:List(x:String)" Name="exceldatacollection">
+          <Variable.Default>
+            <mva:VisualBasicValue x:TypeArguments="scg:List(x:String)" ExpressionText="new list(of String)" />
+          </Variable.Default>
+        </Variable>
+      </Sequence.Variables>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:MultipleAssign sap2010:Annotation.AnnotationText="Assiging all the fields in the config file to dictionary variables" DisplayName="Multiple Assign" sap:VirtualizedContainerService.HintSize="1868,264" sap2010:WorkflowViewState.IdRef="MultipleAssign_1">
+        <ui:MultipleAssign.AssignOperations>
+          <scg:List x:TypeArguments="ui:AssignOperation" Capacity="8">
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_3">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[WordFilePath]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[in_Config("WordTemplate").ToString]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_4">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[LogFilePath]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[in_Config("Log Messages").ToString]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_5">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[Protectedpdf]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[in_Config("Protected PDFs").ToString]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_6">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[PayslipWord]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[in_Config("Pay Slip-Word Conversion").ToString]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+            <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_7">
+              <ui:AssignOperation.To>
+                <OutArgument x:TypeArguments="x:String">[PDFfilepath]</OutArgument>
+              </ui:AssignOperation.To>
+              <ui:AssignOperation.Value>
+                <InArgument x:TypeArguments="x:String">[in_Config("Pay Slip-PDFs").ToString]</InArgument>
+              </ui:AssignOperation.Value>
+            </ui:AssignOperation>
+          </scg:List>
+        </ui:MultipleAssign.AssignOperations>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:MultipleAssign>
+      <ui:ReadRange AddHeaders="True" DataTable="[employeeDataDT]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="1868,87" sap2010:WorkflowViewState.IdRef="ReadRange_2" Range="A1:AE6" SheetName="Salary Details" WorkbookPath="Data\Input\Sample Salary Sheet.xlsx" />
+      <ui:ReadRange AddHeaders="True" DataTable="[mapData]" DisplayName="Read Range" sap:VirtualizedContainerService.HintSize="1868,87" sap2010:WorkflowViewState.IdRef="ReadRange_3" Range="A1:B27" SheetName="Sheet1" WorkbookPath="Data\Mapping Sheet.xlsx" />
+      <Assign sap:VirtualizedContainerService.HintSize="1868,60" sap2010:WorkflowViewState.IdRef="Assign_14">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:Int32">[rowcount]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:Int32">[cint(in_TransactionItem.SpecificContent("employeeQueueData"))]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="1868,60" sap2010:WorkflowViewState.IdRef="Assign_15">
+        <Assign.To>
+          <OutArgument x:TypeArguments="sd:DataRow">[employeedatarow]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="sd:DataRow">[employeeDataDT.Rows(rowCount)]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="1868,60" sap2010:WorkflowViewState.IdRef="Assign_16">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[mapFile]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[mapData.rows(0)(0).ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="1868,60" sap2010:WorkflowViewState.IdRef="Assign_4">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[BasicPay]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[mapData.rows(13)(0).ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="1868,60" sap2010:WorkflowViewState.IdRef="Assign_20">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[HRAPay]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[mapData.rows(14)(0).ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="1868,60" sap2010:WorkflowViewState.IdRef="Assign_22">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[MedAllowPay]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[mapData.rows(17)(0).ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <Assign sap:VirtualizedContainerService.HintSize="1868,60" sap2010:WorkflowViewState.IdRef="Assign_21">
+        <Assign.To>
+          <OutArgument x:TypeArguments="x:String">[ConveyancePay]</OutArgument>
+        </Assign.To>
+        <Assign.Value>
+          <InArgument x:TypeArguments="x:String">[mapData.rows(16)(0).ToString]</InArgument>
+        </Assign.Value>
+      </Assign>
+      <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[mapData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="1868,272" sap2010:WorkflowViewState.IdRef="ForEachRow_3">
+        <ui:ForEachRow.Body>
+          <ActivityAction x:TypeArguments="sd:DataRow">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="sd:DataRow" Name="row" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="304,152" sap2010:WorkflowViewState.IdRef="Sequence_32">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <Assign sap:VirtualizedContainerService.HintSize="262,60" sap2010:WorkflowViewState.IdRef="Assign_31">
+                <Assign.To>
+                  <OutArgument x:TypeArguments="x:String">[excelData]</OutArgument>
+                </Assign.To>
+                <Assign.Value>
+                  <InArgument x:TypeArguments="x:String">[row("Excel Data").ToString]</InArgument>
+                </Assign.Value>
+              </Assign>
+            </Sequence>
+          </ActivityAction>
+        </ui:ForEachRow.Body>
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </ui:ForEachRow>
+      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="1868,61" sap2010:WorkflowViewState.IdRef="WriteLine_19" Text="[employeedatarow(BasicPay)]" />
+      <If Condition="[BasicPay.IsNumeric or ConveyancePay.IsNumeric or MedAllowPay.IsNumeric or ConveyancePay.IsNumeric]" sap:VirtualizedContainerService.HintSize="1868,4627" sap2010:WorkflowViewState.IdRef="If_5">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+        <If.Then>
+          <If Condition="[BasicPay.IsNumeric or ConveyancePay.IsNumeric or MedAllowPay.IsNumeric or ConveyancePay.IsNumeric]" sap:VirtualizedContainerService.HintSize="1225,4469" sap2010:WorkflowViewState.IdRef="If_4">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <If.Then>
+              <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="1189,4292" sap2010:WorkflowViewState.IdRef="Sequence_41">
+                <Sequence.Variables>
+                  <Variable x:TypeArguments="x:Int32" Name="Basic" />
+                  <Variable x:TypeArguments="x:Int32" Name="MedAllow" />
+                  <Variable x:TypeArguments="x:Int32" Name="HRA" />
+                  <Variable x:TypeArguments="x:Int32" Name="Conveyance" />
+                </Sequence.Variables>
+                <sap:WorkflowViewStateService.ViewState>
+                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                  </scg:Dictionary>
+                </sap:WorkflowViewStateService.ViewState>
+                <Assign sap:VirtualizedContainerService.HintSize="1147,60" sap2010:WorkflowViewState.IdRef="Assign_27">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[Basic]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(BasicPay)]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap:VirtualizedContainerService.HintSize="1147,60" sap2010:WorkflowViewState.IdRef="Assign_28">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[HRA]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(HRAPay)]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap:VirtualizedContainerService.HintSize="1147,60" sap2010:WorkflowViewState.IdRef="Assign_29">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[Conveyance]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(ConveyancePay)]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <Assign sap:VirtualizedContainerService.HintSize="1147,60" sap2010:WorkflowViewState.IdRef="Assign_30">
+                  <Assign.To>
+                    <OutArgument x:TypeArguments="x:Int32">[MedAllow]</OutArgument>
+                  </Assign.To>
+                  <Assign.Value>
+                    <InArgument x:TypeArguments="x:Int32">[CInt(MedAllowPay)]</InArgument>
+                  </Assign.Value>
+                </Assign>
+                <If Condition="[Basic &gt; 0 and Conveyance &gt;0 and HRA &gt;0 and MedAllow &gt; 0]" sap:VirtualizedContainerService.HintSize="1147,3667" sap2010:WorkflowViewState.IdRef="If_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If.Then>
+                    <TryCatch DisplayName="Try Catch" sap:VirtualizedContainerService.HintSize="624,3509" sap2010:WorkflowViewState.IdRef="TryCatch_3">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <TryCatch.Try>
+                        <p:WordApplicationScope DisplayName="Word Application Scope" FilePath="[WordFilePath]" sap:VirtualizedContainerService.HintSize="586,3282" sap2010:WorkflowViewState.IdRef="WordApplicationScope_3">
+                          <p:WordApplicationScope.Body>
+                            <ActivityAction x:TypeArguments="ui:WordDocument">
+                              <ActivityAction.Argument>
+                                <DelegateInArgument x:TypeArguments="ui:WordDocument" Name="WordDocumentScope" />
+                              </ActivityAction.Argument>
+                              <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="552,3173" sap2010:WorkflowViewState.IdRef="Sequence_38">
+                                <sap:WorkflowViewStateService.ViewState>
+                                  <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                    <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                  </scg:Dictionary>
+                                </sap:WorkflowViewStateService.ViewState>
+                                <p:WordSaveAs DisplayName="Save Document As" FilePath="[PayslipWord+employeedatarow(mapFile).ToString]" sap:VirtualizedContainerService.HintSize="510,167" sap2010:WorkflowViewState.IdRef="WordSaveAs_3">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </p:WordSaveAs>
+                                <ui:ForEachRow ColumnNames="{x:Null}" CurrentIndex="{x:Null}" DataTable="[mapData]" DisplayName="For Each Row in Data Table" sap:VirtualizedContainerService.HintSize="510,464" sap2010:WorkflowViewState.IdRef="ForEachRow_4">
+                                  <ui:ForEachRow.Body>
+                                    <ActivityAction x:TypeArguments="sd:DataRow">
+                                      <ActivityAction.Argument>
+                                        <DelegateInArgument x:TypeArguments="sd:DataRow" Name="Row" />
+                                      </ActivityAction.Argument>
+                                      <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476,345" sap2010:WorkflowViewState.IdRef="Sequence_44">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                        <p:WordReplaceText Found="{x:Null}" DisplayName="Replace Text in Document" sap:VirtualizedContainerService.HintSize="434,162" sap2010:WorkflowViewState.IdRef="WordReplaceText_53" Replace="[employeeDataDT.Rows(rowcount)(row(&quot;Excel Data&quot;).ToString).ToString]" ReplaceAll="True" Search="[row(&quot;Word Template&quot;).ToString]">
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </p:WordReplaceText>
+                                        <ui:SendHotkey DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" EmptyField="{x:Null}" SendWindowMessages="{x:Null}" SpecialKey="{x:Null}" Activate="True" ClickBeforeTyping="True" DisplayName="Send Hotkey - Saving the word document" sap:VirtualizedContainerService.HintSize="434,51" sap2010:WorkflowViewState.IdRef="SendHotkey_3" Key="s" KeyModifiers="Ctrl">
+                                          <ui:SendHotkey.Target>
+                                            <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="b9be5e0e-6bf1-4786-bac9-3317aadb4abf" InformativeScreenshot="4b60328f276a99de3a05d80bbeec7fd1" Selector="&lt;wnd app='winword.exe' cls='OpusApp' title='*' /&gt;&lt;wnd cls='_WwG' title='Microsoft Word Document' /&gt;">
+                                              <ui:Target.TimeoutMS>
+                                                <InArgument x:TypeArguments="x:Int32" />
+                                              </ui:Target.TimeoutMS>
+                                              <ui:Target.WaitForReady>
+                                                <InArgument x:TypeArguments="ui:WaitForReady" />
+                                              </ui:Target.WaitForReady>
+                                            </ui:Target>
+                                          </ui:SendHotkey.Target>
+                                          <sap:WorkflowViewStateService.ViewState>
+                                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            </scg:Dictionary>
+                                          </sap:WorkflowViewStateService.ViewState>
+                                        </ui:SendHotkey>
+                                      </Sequence>
+                                    </ActivityAction>
+                                  </ui:ForEachRow.Body>
+                                </ui:ForEachRow>
+                                <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="510,435" sap2010:WorkflowViewState.IdRef="CommentOut_14">
+                                  <ui:CommentOut.Body>
+                                    <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,357" sap2010:WorkflowViewState.IdRef="Sequence_34">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:AppendLine sap2010:Annotation.AnnotationText="Printing the word conversion details in a log file with timestamp" DisplayName="Log File - Word Conversion" FileName="Log file for word conversion.txt" sap:VirtualizedContainerService.HintSize="334,174" sap2010:WorkflowViewState.IdRef="AppendLine_9" Text="[&quot;The payslip of the employee &quot; +in_TransactionItem.SpecificContent(&quot;NameOfTheEmployee&quot;).ToString+&quot;-&quot;+in_TransactionItem.SpecificContent(&quot;EmployeeID&quot;).ToString+ &quot; for the month - &quot;+in_TransactionItem.SpecificContent(&quot;Month&quot;).ToString+&quot;, &quot;+in_TransactionItem.SpecificContent(&quot;Year&quot;).ToString + &quot; has been successfully created in word document: &quot; + (datetime.Now).ToString]" UseDefaultEncoding="False">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:AppendLine>
+                                      <p:WordExportToPdf DisplayName="Save Word Paylip as PDF Payslip" FilePath="[PDFfilepath+in_TransactionItem.SpecificContent(&quot;NameOfTheEmployee&quot;).ToString+ &quot;_&quot;+in_TransactionItem.SpecificContent(&quot;EmployeeID&quot;).ToString+&quot;_Payslip_&quot;+in_TransactionItem.SpecificContent(&quot;Month&quot;).ToString+&quot;_&quot;+in_TransactionItem.SpecificContent(&quot;Year&quot;).ToString+&quot;.pdf&quot;]" sap:VirtualizedContainerService.HintSize="334,51" sap2010:WorkflowViewState.IdRef="WordExportToPdf_3">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </p:WordExportToPdf>
+                                    </Sequence>
+                                  </ui:CommentOut.Body>
+                                </ui:CommentOut>
+                                <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="510,568" sap2010:WorkflowViewState.IdRef="CommentOut_15">
+                                  <ui:CommentOut.Body>
+                                    <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,490" sap2010:WorkflowViewState.IdRef="Sequence_35">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:AppendLine sap2010:Annotation.AnnotationText="Printing the pdf conversion details in a log file with timestamp" DisplayName="Log File - PDF Conversion" FileName="Log file for pdf conversion.txt" sap:VirtualizedContainerService.HintSize="334,174" sap2010:WorkflowViewState.IdRef="AppendLine_10" Text="[&quot;The payslip of the employee &quot; +in_TransactionItem.SpecificContent(&quot;NameOfTheEmployee&quot;).ToString+&quot; for the month&quot;+in_TransactionItem.SpecificContent(&quot;Month&quot;).ToString+&quot;,&quot;+in_TransactionItem.SpecificContent(&quot;Year&quot;).ToString + &quot; has been successfully created in pdf document: &quot; + (datetime.Now).ToString]" UseDefaultEncoding="False">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:AppendLine>
+                                      <ui:CloseApplication DisplayName="Close Application - Word Document" sap:VirtualizedContainerService.HintSize="334,51" sap2010:WorkflowViewState.IdRef="CloseApplication_3">
+                                        <ui:CloseApplication.Target>
+                                          <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="5bb67295-9f54-4952-a277-3b9f3380f183" InformativeScreenshot="563628c40de90f8812afed9bdf3f5540" Selector="&lt;wnd app='winword.exe' cls='OpusApp' title='*' /&gt;&lt;wnd cls='_WwG' title='Microsoft Word Document' /&gt;">
+                                            <ui:Target.TimeoutMS>
+                                              <InArgument x:TypeArguments="x:Int32" />
+                                            </ui:Target.TimeoutMS>
+                                            <ui:Target.WaitForReady>
+                                              <InArgument x:TypeArguments="ui:WaitForReady" />
+                                            </ui:Target.WaitForReady>
+                                          </ui:Target>
+                                        </ui:CloseApplication.Target>
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:CloseApplication>
+                                      <upap:ManagePDFPassword sap2010:Annotation.AnnotationText="Protecting the payslip with password" DisplayName="Protect PDF Payslip" FileName="[PDFfilepath+in_TransactionItem.SpecificContent(&quot;NameOfTheEmployee&quot;).ToString+ &quot;_&quot;+in_TransactionItem.SpecificContent(&quot;EmployeeID&quot;).ToString+&quot;_Payslip_&quot;+in_TransactionItem.SpecificContent(&quot;Month&quot;).ToString+&quot;_&quot;+in_TransactionItem.SpecificContent(&quot;Year&quot;).ToString+&quot;.pdf&quot;]" sap:VirtualizedContainerService.HintSize="334,93" sap2010:WorkflowViewState.IdRef="ManagePDFPassword_3" NewOwnerPassword="123456" NewUserPassword="[in_TransactionItem.SpecificContent(&quot;EmployeeID&quot;).ToString]" OutputFileName="[Protectedpdf +in_TransactionItem.SpecificContent(&quot;NameOfTheEmployee&quot;).ToString+ &quot;_&quot;+in_TransactionItem.SpecificContent(&quot;EmployeeID&quot;).ToString+&quot;_Payslip_&quot;+in_TransactionItem.SpecificContent(&quot;Month&quot;).ToString+&quot;_&quot;+in_TransactionItem.SpecificContent(&quot;Year&quot;).ToString+&quot;.pdf&quot;]">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </upap:ManagePDFPassword>
+                                    </Sequence>
+                                  </ui:CommentOut.Body>
+                                </ui:CommentOut>
+                                <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="510,690" sap2010:WorkflowViewState.IdRef="CommentOut_16">
+                                  <ui:CommentOut.Body>
+                                    <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,612" sap2010:WorkflowViewState.IdRef="Sequence_36">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="In_Credentials" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="334,79" sap2010:WorkflowViewState.IdRef="GetRobotCredential_3" Password="[Password]" Username="[UserID]" />
+                                      <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" Password="{x:Null}" ReplyTo="{x:Null}" TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Sending the pasword protected pdf payslip as attachement to the respecive employee" Body="[String.Format(&quot;Dear {0},&quot;+vbCrLf+&quot;Please find the attached payslip for the month {1} {2}&quot;,in_TransactionItem.SpecificContent(&quot;NameOfTheEmployee&quot;),in_TransactionItem.SpecificContent(&quot;Month&quot;),in_TransactionItem.SpecificContent(&quot;Year&quot;))+&quot;.&quot;+vbCrLf+ &quot;&lt;b&gt;Note: &lt;\b&gt;The Payslip is password protected. The password to open the document is your 6 digits Employee ID. &quot; +vbCrLf+vbcrlf +&quot;THIS IS AN AUTO-GENERATED MAIL. PLEASE DO NOT REPLY TO THIS MAIL.&quot; + vbcrlf +vbcrlf+vbCrLf+ &quot;Thanks,&quot; + vbcrlf +&quot;Paysol Team&quot;]" DisplayName="Send SMTP Mail Message" Email="[UserID]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,187" sap2010:WorkflowViewState.IdRef="SendMail_3" IsBodyHtml="True" Port="587" SecureConnection="Auto" SecurePassword="[Password]" Server="smtp.gmail.com" Subject="[&quot;Payslip for the month of &quot;+ in_TransactionItem.SpecificContent(&quot;Month&quot;).ToString + &quot; &quot; + in_TransactionItem.SpecificContent(&quot;Year&quot;).ToString]" To="[in_TransactionItem.SpecificContent.ContainsValue(&quot;Email&quot;).ToString]">
+                                        <ui:SendMail.Files>
+                                          <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
+                                            <InArgument x:TypeArguments="x:String">[Protectedpdf+in_TransactionItem.SpecificContent("NameOfTheEmployee").ToString+ "_"+in_TransactionItem.SpecificContent("EmployeeID").ToString+"_Payslip_"+in_TransactionItem.SpecificContent("Month").ToString+"_"+in_TransactionItem.SpecificContent("Year").ToString + ".pdf"]</InArgument>
+                                          </scg:List>
+                                        </ui:SendMail.Files>
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:SendMail>
+                                      <ui:AppendLine sap2010:Annotation.AnnotationText="Printing the email sent details in a log file with timestamp" DisplayName="Log File - Email" FileName="Log file for Email.txt" sap:VirtualizedContainerService.HintSize="334,174" sap2010:WorkflowViewState.IdRef="AppendLine_11" Text="[&quot;Email for the employee &quot; +in_TransactionItem.SpecificContent(&quot;NameOfTheEmployee&quot;).ToString+&quot;-&quot;+in_TransactionItem.SpecificContent(&quot;EmployeeID&quot;).ToString+ &quot; for the month - &quot;+in_TransactionItem.SpecificContent(&quot;Month&quot;).ToString+&quot;, &quot;+in_TransactionItem.SpecificContent(&quot;Year&quot;).ToString + &quot; has been successfully sent: &quot; + (datetime.Now).ToString]" UseDefaultEncoding="False">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:AppendLine>
+                                    </Sequence>
+                                  </ui:CommentOut.Body>
+                                </ui:CommentOut>
+                                <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="510,396" sap2010:WorkflowViewState.IdRef="CommentOut_17">
+                                  <ui:CommentOut.Body>
+                                    <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="242,318" sap2010:WorkflowViewState.IdRef="Sequence_37">
+                                      <sap:WorkflowViewStateService.ViewState>
+                                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                        </scg:Dictionary>
+                                      </sap:WorkflowViewStateService.ViewState>
+                                      <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Moving the pdf log file to the log file folder" Destination="[LogFilePath + &quot;Log file for word conversion - &quot; + DateTime.Now.ToString(“dd-MM-yyyy - HH_mm”) +&quot;.txt&quot;]" DisplayName="Move File - PDF Log file" sap:VirtualizedContainerService.HintSize="200,93" sap2010:WorkflowViewState.IdRef="MoveFile_5" Overwrite="False" Path="Log file for word conversion.txt">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:MoveFile>
+                                      <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Moving the Email log file to the log file folder" Destination="[LogFilePath + &quot;Log file for Email.txt - &quot; + DateTime.Now.ToString(“dd-MM-yyyy - HH_mm”) +&quot;.txt&quot;]" DisplayName="Move File - Email Log file" sap:VirtualizedContainerService.HintSize="200,93" sap2010:WorkflowViewState.IdRef="MoveFile_6" Overwrite="False" Path="Log file for Email.txt">
+                                        <sap:WorkflowViewStateService.ViewState>
+                                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                                            <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                                          </scg:Dictionary>
+                                        </sap:WorkflowViewStateService.ViewState>
+                                      </ui:MoveFile>
+                                    </Sequence>
+                                  </ui:CommentOut.Body>
+                                </ui:CommentOut>
+                                <ui:SetTransactionStatus ContinueOnError="{x:Null}" Reason="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" sap2010:Annotation.AnnotationText="Setting the transaction status for ach ransaction as&quot;Successful&quot; after sucessful process" DisplayName="Set Transaction Status" ErrorType="Business" sap:VirtualizedContainerService.HintSize="510,121" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_11" Status="Successful" TransactionItem="[in_TransactionItem]">
+                                  <ui:SetTransactionStatus.Analytics>
+                                    <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+                                  </ui:SetTransactionStatus.Analytics>
+                                  <ui:SetTransactionStatus.Output>
+                                    <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+                                  </ui:SetTransactionStatus.Output>
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                </ui:SetTransactionStatus>
+                              </Sequence>
+                            </ActivityAction>
+                          </p:WordApplicationScope.Body>
+                        </p:WordApplicationScope>
+                      </TryCatch.Try>
+                      <TryCatch.Catches>
+                        <Catch x:TypeArguments="s:InvalidCastException" sap:VirtualizedContainerService.HintSize="590,21" sap2010:WorkflowViewState.IdRef="Catch`1_8">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ActivityAction x:TypeArguments="s:InvalidCastException">
+                            <ActivityAction.Argument>
+                              <DelegateInArgument x:TypeArguments="s:InvalidCastException" Name="exception" />
+                            </ActivityAction.Argument>
+                            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_16" Text="Invalid data found" />
+                          </ActivityAction>
+                        </Catch>
+                      </TryCatch.Catches>
+                    </TryCatch>
+                  </If.Then>
+                  <If.Else>
+                    <Sequence sap:VirtualizedContainerService.HintSize="478,718" sap2010:WorkflowViewState.IdRef="Sequence_40">
+                      <sap:WorkflowViewStateService.ViewState>
+                        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        </scg:Dictionary>
+                      </sap:WorkflowViewStateService.ViewState>
+                      <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="436,61" sap2010:WorkflowViewState.IdRef="WriteLine_17" Text="Invalid Data" />
+                      <Throw Exception="[new BusinessRuleException(&quot;Invalid Basic Pay&quot;)]" sap:VirtualizedContainerService.HintSize="436,22" sap2010:WorkflowViewState.IdRef="Throw_3" />
+                      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="436,344" sap2010:WorkflowViewState.IdRef="CommentOut_18">
+                        <ui:CommentOut.Body>
+                          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,266" sap2010:WorkflowViewState.IdRef="Sequence_39">
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                            <ui:AppendLine sap2010:Annotation.AnnotationText="Printing the word conversion details in a log file with timestamp" DisplayName="Log File - Word Conversion" FileName="Log file for word conversion.txt" sap:VirtualizedContainerService.HintSize="334,174" sap2010:WorkflowViewState.IdRef="AppendLine_12" Text="[&quot;The payslip of the employee &quot; +in_TransactionItem.SpecificContent(&quot;NameOfTheEmployee&quot;).ToString+&quot;-&quot;+in_TransactionItem.SpecificContent(&quot;EmployeeID&quot;).ToString+ &quot; for the month - &quot;+in_TransactionItem.SpecificContent(&quot;Month&quot;).ToString+&quot;, &quot;+in_TransactionItem.SpecificContent(&quot;Year&quot;).ToString + &quot; has not been  created in word document as the Basic is not in valid format: &quot; + (datetime.Now).ToString]" UseDefaultEncoding="False">
+                              <sap:WorkflowViewStateService.ViewState>
+                                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                </scg:Dictionary>
+                              </sap:WorkflowViewStateService.ViewState>
+                            </ui:AppendLine>
+                          </Sequence>
+                        </ui:CommentOut.Body>
+                      </ui:CommentOut>
+                      <ui:SetTransactionStatus ContinueOnError="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Transaction Status" ErrorType="Business" sap:VirtualizedContainerService.HintSize="436,79" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_12" Reason="Invalid Basic Pay" Status="Failed" TransactionItem="[in_TransactionItem]">
+                        <ui:SetTransactionStatus.Analytics>
+                          <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+                        </ui:SetTransactionStatus.Analytics>
+                        <ui:SetTransactionStatus.Output>
+                          <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+                        </ui:SetTransactionStatus.Output>
+                      </ui:SetTransactionStatus>
+                    </Sequence>
+                  </If.Else>
+                </If>
+                <ui:MoveFile ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Moving the word log file to the log file folder" Destination="[LogFilePath + &quot;Log file for pdf conversion - &quot; + DateTime.Now.ToString(“dd-MM-yyyy - HH_mm”) +&quot;.txt&quot;]" DisplayName="Move File - Word Log file" sap:VirtualizedContainerService.HintSize="1147,93" sap2010:WorkflowViewState.IdRef="MoveFile_7" Overwrite="False" Path="Log file for pdf conversion.txt">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                      <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                </ui:MoveFile>
+              </Sequence>
+            </If.Then>
+          </If>
+        </If.Then>
+        <If.Else>
+          <Sequence sap:VirtualizedContainerService.HintSize="478,718" sap2010:WorkflowViewState.IdRef="Sequence_43">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="436,61" sap2010:WorkflowViewState.IdRef="WriteLine_18" Text="Invalid Data" />
+            <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="436,344" sap2010:WorkflowViewState.IdRef="CommentOut_19">
+              <ui:CommentOut.Body>
+                <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="376,266" sap2010:WorkflowViewState.IdRef="Sequence_42">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:AppendLine sap2010:Annotation.AnnotationText="Printing the word conversion details in a log file with timestamp" DisplayName="Log File - Word Conversion" FileName="Log file for word conversion.txt" sap:VirtualizedContainerService.HintSize="334,174" sap2010:WorkflowViewState.IdRef="AppendLine_13" Text="[&quot;The payslip of the employee &quot; +in_TransactionItem.SpecificContent(&quot;NameOfTheEmployee&quot;).ToString+&quot;-&quot;+in_TransactionItem.SpecificContent(&quot;EmployeeID&quot;).ToString+ &quot; for the month - &quot;+in_TransactionItem.SpecificContent(&quot;Month&quot;).ToString+&quot;, &quot;+in_TransactionItem.SpecificContent(&quot;Year&quot;).ToString + &quot; has not been  created in word document as the Basic is not in valid format: &quot; + (datetime.Now).ToString]" UseDefaultEncoding="False">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:AppendLine>
+                </Sequence>
+              </ui:CommentOut.Body>
+            </ui:CommentOut>
+            <ui:SetTransactionStatus ContinueOnError="{x:Null}" ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Set Transaction Status" ErrorType="Business" sap:VirtualizedContainerService.HintSize="436,79" sap2010:WorkflowViewState.IdRef="SetTransactionStatus_13" Reason="Invalid Basic Pay" Status="Failed" TransactionItem="[in_TransactionItem]">
+              <ui:SetTransactionStatus.Analytics>
+                <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+              </ui:SetTransactionStatus.Analytics>
+              <ui:SetTransactionStatus.Output>
+                <scg:Dictionary x:TypeArguments="x:String, InArgument" />
+              </ui:SetTransactionStatus.Output>
+            </ui:SetTransactionStatus>
+            <Throw Exception="[new BusinessRuleException(&quot;Invalid Basic Pay&quot;)]" sap:VirtualizedContainerService.HintSize="436,22" sap2010:WorkflowViewState.IdRef="Throw_4" />
+          </Sequence>
+        </If.Else>
+      </If>
+      <ui:CommentOut DisplayName="Comment Out" sap:VirtualizedContainerService.HintSize="1868,635" sap2010:WorkflowViewState.IdRef="CommentOut_13">
+        <ui:CommentOut.Body>
+          <Sequence DisplayName="Ignored Activities" sap:VirtualizedContainerService.HintSize="272,557" sap2010:WorkflowViewState.IdRef="Sequence_31">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_15" Text="[employeedatarow(MedAllowPay).ToString]" />
+            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_14" Text="[employeedatarow(ConveyancePay).ToString]" />
+            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_13" Text="[employeedatarow(HRAPay).ToString]" />
+            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_6" Text="[employeedatarow(mapFile).ToString]" />
+            <WriteLine DisplayName="Write Line" sap:VirtualizedContainerService.HintSize="230,61" sap2010:WorkflowViewState.IdRef="WriteLine_12" Text="[employeedatarow(BasicPay).ToString]" />
+          </Sequence>
+        </ui:CommentOut.Body>
+      </ui:CommentOut>
+    </Sequence>
+  </Sequence>
+</Activity>

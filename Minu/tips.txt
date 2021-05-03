@@ -1,0 +1,18 @@
+1. enter the user demanded vakues in the config file
+2. read d file n extract d string n split to get column names
+3. chk filter data table with single select statement
+
+4. Use Left join on the coll data table n the EMPDT to get the new one which can b added to the queue
+another method
+5. Use Preethi Method- dont give option for employee id
+
+
+5. Check if input coll values are null,(nohard coding )if null invalid, chk data type
+6. row(item) is not null - set a flag - Invalid n continue break
+Build data table
+1. Create a table
+2. For each entry in the list
+3. Add data column
+
+Try Merging the dbs
+newly created table- 
